@@ -1,0 +1,69 @@
+/*Para splicar a todos os elementos*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}   
+
+/*Para o body*/
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /*ocupa 100% da altura da tela*/
+    font-family: 'Arial', sans-serif;
+    background-color: #e0e0e0;
+}
+
+/*Para os visores*/
+
+.visors {
+    font-size: 100px;
+    color: #000;
+    text-align: center;
+}
+
+h3 {
+    font-size: 80px;
+}
+
+/*Para os seletores e botões*/
+
+.selects {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#startBtn, #pauseBtn, #resetBtn, #finishBtn, #rounds, #seconds, #rest {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*Efeitos de piscar e mudar a tela*/
+
+.tela-pausada {
+    background-color: #87CEFA;
+}
+
+.tela-piscando-vermelho {
+    animation: piscar 1s infinite; /*Executa a animacao "piscar" de 1 em 1 segundo*/
+}
+
+@keyframes piscar { /*Cria animações puras*/
+    0% { background-color: #E0E0E0; }
+    50% { background-color: #F00; }
+    100% { background-color: #E0E0E0;}
+}
