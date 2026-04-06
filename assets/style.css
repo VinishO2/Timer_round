@@ -26,8 +26,13 @@ body {
     text-align: center;
 }
 
-h3 {
+h1 {
     font-size: 80px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 30px;
 }
 
 /*Para os seletores e botões*/
@@ -66,4 +71,8 @@ h3 {
     0% { background-color: #E0E0E0; }
     50% { background-color: #F00; }
     100% { background-color: #E0E0E0;}
+}
+
+.tela-descanso {
+    background-color: #90EE90;
 }
