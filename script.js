@@ -3,16 +3,21 @@ let visorTempo = document.querySelector("#visorsec")
 let visorRound = document.querySelector("#visorround")
 let totalRounds = document.querySelector("#totalrounds")
 
-//Variaveis dos seletores
+//Variáveis dos seletores
 let selecRounds = document.querySelector("#rounds")
 let selecTempo = document.querySelector("#seconds")
 let selecDescanso = document.querySelector("#rest")
 
-//Variaveis dos botões
+//Variáveis dos botões
 let iniciar = document.querySelector ("#startBtn");
 let pausar = document.querySelector ("#pauseBtn");
 let reset = document.querySelector ("#resetBtn");
 let finish = document.querySelector ("#finishBtn");
+
+//Variáveis para os sons
+let somGongo = new Audio("assets/Sons/som-gongo.mp3");
+let somDescanso = new Audio("assets/Sons/duck.mp3");
+let somFinal = new Audio("assets/Sons/nuke-alarm.mp3");
 
 //Variáveis de controle
 let tempoRestante = 0;
@@ -51,6 +56,7 @@ function inicio(){
         } else {
              // Pega o tempo do select
              tempoRestante = parseInt(selecTempo.value);
+             somGongo.play();
         }    
     }
     
@@ -65,6 +71,7 @@ function inicio(){
                 emDescanso = false;
                 document.body.classList.remove("tela-descanso");
                 atualizarVisor();
+                somGongo.play();
             } else if (emDescanso === false && roundAtual < parseInt(selecRounds.value)){
                 roundAtual++;
                 tempoRestante = parseInt(selecDescanso.value);
@@ -72,9 +79,11 @@ function inicio(){
                 emDescanso = true;
                 document.body.classList.add("tela-descanso");
                 atualizarVisor();
+                somDescanso.play();
             } else {
                 clearInterval(intervaloId);
                 document.body.classList.add("tela-piscando-vermelho")
+                somFinal.play();
             }
         }
     }, 1000); //em milissegundos
@@ -101,5 +110,12 @@ function finalizar(){
     roundAtual = 1;
     visorRound.textContent = "1";
     totalRounds.textContent = selecRounds.value;
+    document.body.classList.remove("tela-descanso", "tela-pausada", "tela-piscando-vermelho");
+    somGongo.pause();
+    somDescanso.pause();
+    somFinal.pause();
+    somGongo.currentTime = 0;
+    somDescanso.currentTime = 0;
+    somFinal.currentTime = 0;
    
 }
