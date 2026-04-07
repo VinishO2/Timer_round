@@ -76,3 +76,8 @@ h3 {
 .tela-descanso {
     background-color: #90EE90;
 }
+
+.tela-prep{
+    background-color: #FFCC00;
+    color: #000;
+}

@@ -18,12 +18,14 @@ let finish = document.querySelector ("#finishBtn");
 let somGongo = new Audio("assets/Sons/som-gongo.mp3");
 let somDescanso = new Audio("assets/Sons/duck.mp3");
 let somFinal = new Audio("assets/Sons/nuke-alarm.mp3");
+let somPrep = new Audio("assets/Sons/beep.mp3");
 
 //Variáveis de controle
 let tempoRestante = 0;
 let roundAtual = 1;
 let intervaloId = null;
 let emDescanso = false;
+let emPrep = false;
 
 //Eventos dos botões
 iniciar.addEventListener("click", inicio);
@@ -50,40 +52,65 @@ function inicio(){
     clearInterval(intervaloId);
     document.body.classList.remove("tela-pausada");
 
-    if(tempoRestante === 0){
-        if (emDescanso) {
-            tempoRestante = parseInt(selecDescanso.value);
-        } else {
-             // Pega o tempo do select
-             tempoRestante = parseInt(selecTempo.value);
-             somGongo.play();
-        }    
-    }
+    if(tempoRestante === 0 && roundAtual === 1 && !emDescanso){
+        emPrep = true;
+        tempoRestante = 10;
+        document.body.classList.add("tela-prep");
+    } else if (emDescanso) {
+        tempoRestante = parseInt(selecDescanso.value);
+    } else {
+        // Pega o tempo do select
+        tempoRestante = parseInt(selecTempo.value);
+        somGongo.play();
+        somGongo.volume = 0.3;
+    }    
+
+    atualizarVisor();
     
     // Roda o bloco de código a cada 1 segundo
     intervaloId = setInterval(function (){
         if(tempoRestante > 0){
             tempoRestante--;
             atualizarVisor();
+            if (emPrep && tempoRestante <= 3 && tempoRestante > 0) {
+                somPrep.play();
+                somPrep.volume = 0.3;
+            }
         } else {
-            if (emDescanso === true) {
+            if (emPrep) {
+                emPrep = false;
                 tempoRestante = parseInt(selecTempo.value);
-                emDescanso = false;
-                document.body.classList.remove("tela-descanso");
-                atualizarVisor();
+                document.body.classList.remove("tela-prep");
                 somGongo.play();
-            } else if (emDescanso === false && roundAtual < parseInt(selecRounds.value)){
+                somGongo.volume = 0.3;
+                atualizarVisor();
+            } else if (emDescanso) {
+                emDescanso = false;
+                tempoRestante = parseInt(selecTempo.value);
+                document.body.classList.remove("tela-descanso");
+                somGongo.play();
+                somGongo.volume = 0.3;
+                atualizarVisor();
+            } else if (roundAtual < parseInt(selecRounds.value)){
                 roundAtual++;
+                emDescanso = true;
                 tempoRestante = parseInt(selecDescanso.value);
                 visorRound.textContent = roundAtual;
-                emDescanso = true;
                 document.body.classList.add("tela-descanso");
-                atualizarVisor();
                 somDescanso.play();
+                somDescanso.volume = 0.3;
+                atualizarVisor();
             } else {
                 clearInterval(intervaloId);
                 document.body.classList.add("tela-piscando-vermelho")
                 somFinal.play();
+                somFinal.volume = 0.05;
+                somFinal.duration = 5;
+                
+                setTimeout(function(){
+                    finalizar();
+                }, 5000);
+                
             }
         }
     }, 1000); //em milissegundos
@@ -101,8 +128,9 @@ function resetar(){
     clearInterval(intervaloId);
     tempoRestante = 0;
     emDescanso = false;
+    emPrep = false;
     visorTempo.textContent = "00:00";
-    document.body.classList.remove("tela-pausada", "tela-piscando-vermelho");
+    document.body.classList.remove("tela-prep","tela-descanso","tela-pausada", "tela-piscando-vermelho");
 }
 
 function finalizar(){
