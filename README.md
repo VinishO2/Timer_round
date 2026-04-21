@@ -1,4 +1,4 @@
-# 🥊 Boxing Timer - Cronômetro de Treino Profissional
+# 🥊 Boxing Timer - Cronômetro de Treino
 
 Uma aplicação web desenvolvida em JavaScript puro (Vanilla JS) para gerenciar rotinas de treino intervalado, com foco específico em rounds de boxe. 
 
