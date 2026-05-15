@@ -16,68 +16,73 @@ body {
     min-height: 100vh; /*ocupa 100% da altura da tela*/
     font-family: 'Arial', sans-serif;
     background-color: #e0e0e0;
+    padding: 20px;
+    text-align: center;
 }
 
 /*Para os visores*/
 
 .visors {
-    font-size: 100px;
+    font-size: 25vw;
     color: #000;
-    text-align: center;
+    line-height: 1;
 }
 
 h1 {
-    font-size: 80px;
-    margin-bottom: 20px;
+    font-size: 15vw;
+    margin-bottom: 2vh;
 }
 
 h3 {
-    font-size: 30px;
+    font-size: 6vw;
 }
 
 /*Para os seletores e botões*/
 
-.selects {
+.selects, .buttons {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     margin-top: 20px;
-}
-
-.buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
+    flex-wrap: wrap; /*quebra a linha se necessário*/
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
 }
 
 #startBtn, #pauseBtn, #resetBtn, #finishBtn, #rounds, #seconds, #rest {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 15px 20px;
+    font-size: 18px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    flex: 1 1 auto; /*Permite que os botões cresçam e encolham conforme necessário*/
+    min-width: 100px;
 }
 
 /*Efeitos de piscar e mudar a tela*/
 
-.tela-pausada {
-    background-color: #87CEFA;
-}
+.tela-pausada {background-color: #87CEFA;}
+.tela-descanso {background-color: #90EE90;}
+.tela-prep{background-color: #FFCC00; color: #000;}
 
-.tela-piscando-vermelho {
-    animation: piscar 1s infinite; /*Executa a animacao "piscar" de 1 em 1 segundo*/
-}
+.tela-piscando-vermelho {animation: piscar 1s infinite;} /*Executa a animacao "piscar" de 1 em 1 segundo*/
 
-@keyframes piscar { /*Cria animações puras*/
+@keyframes piscar { 
     0% { background-color: #E0E0E0; }
     50% { background-color: #F00; }
     100% { background-color: #E0E0E0;}
-}
+} /*Cria animações puras*/
 
-.tela-descanso {
-    background-color: #90EE90;
-}
+@media (min-width: 768px) {
+    .visors {
+        font-size: 150px;
+    }
 
-.tela-prep{
-    background-color: #FFCC00;
-    color: #000;
+    h1 {font-size: 80px;}
+    h3 {font-size: 30px;}
+
+    .selects, .buttons {
+        flex-wrap: nowrap; /*Não quebra a linha em telas maiores*/
+        max-width: 800px;
+    }
 }
