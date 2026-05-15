@@ -52,18 +52,23 @@ function inicio(){
     clearInterval(intervaloId);
     document.body.classList.remove("tela-pausada");
 
-    if(tempoRestante === 0 && roundAtual === 1 && !emDescanso){
-        emPrep = true;
-        tempoRestante = 10;
-        document.body.classList.add("tela-prep");
-    } else if (emDescanso) {
-        tempoRestante = parseInt(selecDescanso.value);
-    } else {
-        // Pega o tempo do select
-        tempoRestante = parseInt(selecTempo.value);
-        somGongo.play();
-        somGongo.volume = 0.3;
-    }    
+    iniciar.disabled = true; 
+    //Desabilita multiplos cliques no botão iniciar
+
+    if(tempoRestante === 0) {
+        if(tempoRestante === 0 && roundAtual === 1 && !emDescanso){
+            emPrep = true;
+            tempoRestante = 10;
+            document.body.classList.add("tela-prep");
+        } else if (emDescanso) {
+            tempoRestante = parseInt(selecDescanso.value);
+        } else {
+            // Pega o tempo do select
+            tempoRestante = parseInt(selecTempo.value);
+            somGongo.play();
+            somGongo.volume = 0.3;
+        }
+    }
 
     atualizarVisor();
     
@@ -122,6 +127,7 @@ function inicio(){
 function pausa(){
     clearInterval(intervaloId);
     document.body.classList.add("tela-pausada");
+    iniciar.disabled = false;
 }
 
 function resetar(){
@@ -131,6 +137,7 @@ function resetar(){
     emPrep = false;
     visorTempo.textContent = "00:00";
     document.body.classList.remove("tela-prep","tela-descanso","tela-pausada", "tela-piscando-vermelho");
+    iniciar.disabled = false;
 }
 
 function finalizar(){
@@ -145,5 +152,6 @@ function finalizar(){
     somGongo.currentTime = 0;
     somDescanso.currentTime = 0;
     somFinal.currentTime = 0;
+    iniciar.disabled = false;
    
 }
