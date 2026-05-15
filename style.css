@@ -59,6 +59,13 @@ h3 {
     min-width: 100px;
 }
 
+#startBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #ccc;
+}
+
+
 /*Efeitos de piscar e mudar a tela*/
 
 .tela-pausada {background-color: #87CEFA;}
