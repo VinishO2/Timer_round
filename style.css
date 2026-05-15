@@ -86,3 +86,31 @@ h3 {
         max-width: 800px;
     }
 }
+
+@media (orientation: landscape) and (max-height: 600px) {
+    body {
+        padding: 5px;
+    }
+
+    .visors {
+        font-size: 35vh;
+    }
+
+    h1 {
+        font-size: 20vh;
+        margin-bottom: 5px;
+    }
+
+    h3 {
+        font-size: 12vh;
+    }
+
+    .selects, .buttons {
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    #startBtn, #pauseBtn, #resetBtn, #finishBtn, #rounds, #seconds, #rest {
+        padding: 8px 15px;
+    }
+}
